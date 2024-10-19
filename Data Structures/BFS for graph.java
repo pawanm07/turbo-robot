@@ -1,67 +1,61 @@
 import java.util.*;
 
-class GfG {
-  
-    // BFS from given source s
-    static void bfs(List<List<Integer>> adj, int s) {
-      
-        // Create a queue for BFS
-        Queue<Integer> q = new LinkedList<>();
+class BFSGraph {
+
+    // Method to perform BFS traversal from a given source vertex
+    static void bfs(List<List<Integer>> adjList, int source) {
+        // Queue for BFS
+        Queue<Integer> queue = new LinkedList<>();
         
-        // Initially mark all the vertices as not visited
-        // When we push a vertex into the q, we mark it as 
-        // visited
-        boolean[] visited = new boolean[adj.size()];
+        // Array to keep track of visited vertices
+        boolean[] visited = new boolean[adjList.size()];
         
-        // Mark the source node as visited and enqueue it
-        visited[s] = true;
-        q.add(s);
+        // Mark the source vertex as visited and enqueue it
+        visited[source] = true;
+        queue.add(source);
         
-        // Iterate over the queue
-        while (!q.isEmpty()) {
-          
-            // Dequeue a vertex and print it
-            int curr = q.poll();
-            System.out.print(curr + " ");
+        // Traverse the graph
+        while (!queue.isEmpty()) {
+            // Dequeue the vertex
+            int current = queue.poll();
+            System.out.print(current + " ");
             
-            // Get all adjacent vertices of the dequeued vertex
-            // If an adjacent has not been visited, mark it 
-            // visited and enqueue it
-            for (int x : adj.get(curr)) {
-                if (!visited[x]) {
-                    visited[x] = true;
-                    q.add(x);
+            // Loop through all adjacent vertices of the dequeued vertex
+            for (int neighbor : adjList.get(current)) {
+                if (!visited[neighbor]) {
+                    // Mark the neighbor as visited and enqueue it
+                    visited[neighbor] = true;
+                    queue.add(neighbor);
                 }
             }
         }
     }
 
-    // Function to add an edge to the graph
-    static void addEdge(List<List<Integer>> adj, int u, int v) {
-        adj.get(u).add(v);
-        adj.get(v).add(u); // Undirected graph
+    // Method to add an edge to the graph
+    static void addEdge(List<List<Integer>> adjList, int u, int v) {
+        adjList.get(u).add(v);  // Add v to u's list
+        adjList.get(v).add(u);  // Add u to v's list (since it's an undirected graph)
     }
 
     public static void main(String[] args) {
-      
         // Number of vertices in the graph
         int V = 5;
         
-        // Adjacency list representation of the graph
-        List<List<Integer>> adj = new ArrayList<>(V);
+        // Initialize the adjacency list for the graph
+        List<List<Integer>> adjList = new ArrayList<>(V);
         for (int i = 0; i < V; i++) {
-            adj.add(new ArrayList<>());
+            adjList.add(new ArrayList<>());
         }
         
         // Add edges to the graph
-        addEdge(adj, 0, 1);
-        addEdge(adj, 0, 2);
-        addEdge(adj, 1, 3);
-        addEdge(adj, 1, 4);
-        addEdge(adj, 2, 4);
+        addEdge(adjList, 0, 1);
+        addEdge(adjList, 0, 2);
+        addEdge(adjList, 1, 3);
+        addEdge(adjList, 1, 4);
+        addEdge(adjList, 2, 4);
         
-        // Perform BFS traversal starting from vertex 0
-        System.out.println("BFS starting from 0:");
-        bfs(adj, 0);
+        // Perform BFS traversal from vertex 0
+        System.out.println("BFS traversal starting from vertex 0:");
+        bfs(adjList, 0);
     }
 }
