@@ -1,30 +1,31 @@
-// Java code for linearly searching x in arr[]. 
-
 import java.io.*;
 
-class GFG {
-    public static int search(int arr[], int N, int x)
-    {
-        for (int i = 0; i < N; i++) {
-            if (arr[i] == x)
-                return i;
+class LinearSearch {
+    // Method to search for an element in the array
+    public static int search(int[] array, int target) {
+        // Loop through the array
+        for (int index = 0; index < array.length; index++) {
+            if (array[index] == target) {
+                return index; // Return the index if found
+            }
         }
-        return -1;
+        return -1; // Return -1 if not found
     }
 
-    // Driver code
-    public static void main(String args[])
-    {
-        int arr[] = { 2, 3, 4, 10, 40 };
-        int x = 10;
+    public static void main(String[] args) {
+        // Initialize the array and target element
+        int[] numbers = {2, 3, 4, 10, 40};
+        int target = 10;
 
-        // Function call
-        int result = search(arr, arr.length, x);
-        if (result == -1)
-            System.out.print(
-                "Element is not present in array");
-        else
-            System.out.print("Element is present at index "
-                             + result);
+        // Call the search function
+        int index = search(numbers, target);
+
+        // Output the result
+        if (index == -1) {
+            System.out.println("Element is not present in the array");
+        } else {
+            System.out.println("Element is present at index " + index);
+        }
     }
 }
+
